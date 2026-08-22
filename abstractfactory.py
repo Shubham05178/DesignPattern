@@ -54,26 +54,18 @@ class ChineseCusine(CuisnesFactory):
         return HakkaNoddles()
     def getdessert(self):
         return Tangyuan()
-class CuisneMake:
-    @staticmethod
-    def make_cuisne(type):
-        n=None
-        if type=="northindian":
-            n=NorthIndiaCusine()
-        elif type=="chinese":
-            n=ChineseCusine()
-        else:
-            print(f"this {type} is not available")
-            return None
-        n.getStarter().prepare()
-        n.getmainCourse().prepare()
-        n.getdessert().prepare()
+
 class Restaurant:
-    def order(self,type):
-        CuisneMake.make_cuisne(type)
+    def __init__(self,factory):
+        self.__factory=factory
+    def order(self):
+        self.__factory.getStarter().prepare()
+        self.__factory.getmainCourse().prepare()
+        self.__factory.getdessert().prepare()
+    def change_meal(self,factory):
+        self.__factory=factory
 
-
-r=Restaurant()
-r.order("northindian")
-r.order("chinese")
-r.order("southindian")
+r=Restaurant(NorthIndiaCusine())
+r.order()
+r.change_meal(ChineseCusine())
+r.order()
