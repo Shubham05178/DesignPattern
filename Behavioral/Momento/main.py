@@ -1,0 +1,15 @@
+from text_editor import TextEditor
+from history import History
+te=TextEditor()
+h=History()
+te.write("Hello")
+te.write(" World")
+h.save(te.save())
+print(te.get_text())
+te.write(", Good Morning")
+h.save(te.save())
+print(te.get_text())
+te.restore(h.undo())
+print(te.get_text())
+te.restore(h.redo())
+print(te.get_text())
